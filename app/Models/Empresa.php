@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Empresa extends Model
 {
     use HasFactory;
-    protected $fillable = ['nome','logo','publicacao_id'];
+    protected $fillable = ['nome','logo'];
     
     public function publicacao()
     {

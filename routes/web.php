@@ -19,6 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('comentario/{publicacao_id}', [ComentarioController::class, 'index'])->name('comentario.index');
+    Route::post('comentario/cadastrar', [ComentarioController::class, 'store'])->name('comentario.cadastrar');
 });
 
 require __DIR__.'/auth.php';

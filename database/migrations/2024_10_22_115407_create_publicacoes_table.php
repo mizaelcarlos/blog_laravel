@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('comentarios', function (Blueprint $table) {
+        Schema::create('publicacoes', function (Blueprint $table) {
             $table->id();
-            $table->longText('conteudo');
-            $table->unsignedBigInteger('publicacao_id');
-            $table->foreign('publicacao_id')
+            $table->string('foto');
+            $table->string('titulo_prato');
+            $table->string('local');
+            $table->string('cidade');
+            $table->unsignedBigInteger('empresa_id');
+            $table->foreign('empresa_id')
                     ->references('id')
-                    ->on('publicacaos')
+                    ->on('empresas')
                     ->onDelete('cascade');
             $table->timestamps();
         });
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('comentarios');
+        Schema::dropIfExists('publicacoes');
     }
 };

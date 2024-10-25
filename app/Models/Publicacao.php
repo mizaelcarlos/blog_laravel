@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Publicacao extends Model
 {
     use HasFactory;
-    protected $fillable = ['foto','titulo_prato','local','cidade','empresa_id','comentario_id','avaliacao_id'];
+
+    protected $table = 'publicacoes';
+
+    
+    protected $fillable = ['foto','titulo_prato','local','cidade','empresa_id'];
     
     public function empresa()
     {

@@ -33,7 +33,7 @@ class ComentarioController extends Controller
 
         
         
-        return view('comentario.index', compact('publicacao','users','avaliacoes','quantidade_like','quantidade_deslike','comentarios'));
+        return view('comentario.index', compact('publicacao','users','avaliacoes','quantidade_like','quantidade_deslike','comentarios','publicacao_id'));
     }
 
     /**
@@ -49,7 +49,29 @@ class ComentarioController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $comentario = Comentario::create([
+            'conteudo' => $request->input('conteudo'),
+            'user_id' => $request->input('user_id'),
+            'publicacao_id' => $request->input('publicacao_id')
+        ]);
+
+        $publicacao_id = $request->publicacao_id;
+
+        $publicacao = Publicacao::with('empresa','comentario','avaliacao')
+        ->where('id', $publicacao_id)
+        ->get();
+
+        $avaliacoes = Avaliacao::where('publicacao_id', $publicacao_id)->get();
+        $comentarios = Comentario::with('user')
+        ->where('publicacao_id', $publicacao_id)->get();
+        $users = User::all();
+
+        $quantidade_like = '';
+        $quantidade_deslike = '';
+                            
+    
+        
+        return view('comentario.index', compact('publicacao','users','avaliacoes','quantidade_like','quantidade_deslike','comentarios','publicacao_id'));
     }
 
     /**

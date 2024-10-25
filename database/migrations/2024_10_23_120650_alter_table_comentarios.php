@@ -17,6 +17,12 @@ return new class extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+            $table->unsignedBigInteger('publicacao_id');
+            $table->foreign('publicacao_id')
+                    ->references('id')
+                    ->on('publicacoes')
+                    ->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->unsignedBigInteger('publicacao_id');
             $table->foreign('publicacao_id')
                     ->references('id')
-                    ->on('publicacaos')
+                    ->on('publicacoes')
                     ->onDelete('cascade');
             $table->timestamps();
         });

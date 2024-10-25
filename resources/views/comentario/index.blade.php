@@ -32,22 +32,29 @@
                     @foreach ($publicacao as $publicacao)
                         <div class="col-sm"> 
 
-                            <div class="card" style="width: 18rem;">
+                            <div class="card" style="width: 20rem;">
                                 <img class="card-img-top" src="{{ asset('storage/' . $publicacao->foto) }}" alt="Imagem de capa do card">
                                 <div class="card-body">
                                     <h5 class="card-title">{{ $publicacao->titulo_prato }}</h5>
                                     <div class="row align-items-start">
-                                        <div class="col-sm">
-                                            <img class="img-fluid" src="{{ asset('storage/icones/flecha_cima_cheia.svg')}}">
-    
-                                            @foreach ($publicacao->avaliacao as $avaliacao)
-                                                {{ $avaliacao->like }}
-                                            @endforeach
-                                            
-                                            <img class="img-fluid" src="{{ asset('storage/icones/flecha_baixo_cheia.svg')}}">
-                                            @foreach ($publicacao->avaliacao as $avaliacao)
-                                                {{ $avaliacao->deslike }}
-                                            @endforeach
+                                        <div class="col-sm text-left">
+                                            <div class="row align-items-start">
+                                                <div class="col-sm">
+                                                    <img class="img-fluid" src="{{ asset('storage/icones/flecha_cima_cheia.svg')}}">
+            
+                                                    @foreach ($publicacao->avaliacao as $avaliacao)
+                                                        {{ $avaliacao->like }}
+                                                    @endforeach
+                                                </div>
+                                                <div class="col-sm">
+                                                    <img class="img-fluid" src="{{ asset('storage/icones/flecha_baixo_cheia.svg')}}">
+
+
+                                                    @foreach ($publicacao->avaliacao as $avaliacao)
+                                                        {{ $avaliacao->deslike }}
+                                                    @endforeach
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-sm text-right">
                                             <img class="img-fluid" src="{{ asset('storage/icones/chat.svg')}}">
@@ -60,7 +67,19 @@
                                         {{ $comentario->user->name }}
                                         <p>{{ $comentario->conteudo }}</p>
                                     @endforeach
+
+                                    <form method="POST" action="{{ route('comentario.cadastrar') }}">
+                                        @csrf
+                                        <input type="hidden" name="publicacao_id" value="{{ $publicacao_id }}">
+                                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                        <textarea name="conteudo" id="conteudo" rows="5" cols="36"></textarea>
+                                        <div class="text-rigth">
+                                            <button type="submit" class="btn btn-primary">Comentar</button>
+                                        </div>
+                                    </form>
                                 </div>
+
+
                             </div>
                             
                                                 

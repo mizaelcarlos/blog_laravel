@@ -25,6 +25,7 @@
                 @endauth
                 @guest
                     <img class="img-fluid" src="{{ asset('storage/logo/logo_sabor_do_brasil.png')}}">
+                    
                     <div class="row align-items-start">
                         <div class="col-sm">
                              <p>{{  $quantidade_like }} </p>
@@ -48,16 +49,21 @@
                                     <h5 class="card-title">{{ $publicacao->titulo_prato }}</h5>
                                     <div class="row align-items-start">
                                         <div class="col-sm">
-                                            <img class="img-fluid" src="{{ asset('storage/icones/flecha_cima_cheia.svg')}}">
-    
-                                            @foreach ($publicacao->avaliacao as $avaliacao)
-                                                {{ $avaliacao->like }}
-                                            @endforeach
-                                            
-                                            <img class="img-fluid" src="{{ asset('storage/icones/flecha_baixo_cheia.svg')}}">
-                                            @foreach ($publicacao->avaliacao as $avaliacao)
-                                                {{ $avaliacao->deslike }}
-                                            @endforeach
+                                            <div class="row align-items-start">
+                                                <div class="col-sm">
+                                                    <img class="img-fluid" src="{{ asset('storage/icones/flecha_cima_cheia.svg')}}">
+
+                                                    @foreach ($publicacao->avaliacao as $avaliacao)
+                                                        {{ $avaliacao->like }}
+                                                    @endforeach
+                                                </div>
+                                                <div class="col-sm">
+                                                    <img class="img-fluid" src="{{ asset('storage/icones/flecha_baixo_cheia.svg')}}">
+                                                    @foreach ($publicacao->avaliacao as $avaliacao)
+                                                        {{ $avaliacao->deslike }}
+                                                    @endforeach
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="col-sm text-right">
                                             <a href="{{ route('comentario.index', $publicacao->id) }}">
@@ -130,12 +136,13 @@
                                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                     </div>
                                     <button type="submit" class="btn btn-primary">Entrar</button>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                                    </div>
                                 </form>
                                 
                             </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                            </div>
+                           
                         </div>
                         
                     </div>
