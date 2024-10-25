@@ -30,10 +30,11 @@ class AuthenticatedSessionController extends Controller
         ]);
     
         $user = User::where('name', $request->name)->first();
+        
     
         if ($user && Hash::check($request->password, $user->password)) {
             Auth::login($user);
-            return redirect()->intended('/'); // Redirecionar após login
+            return redirect()->intended(route('publicacao.index')); // Redirecionar após login
         }
     
         return back()->withErrors([
