@@ -24,11 +24,21 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
-
-        $request->session()->regenerate();
-
-        return redirect()->intended(route('publicacao.index', absolute: false));
+        $request->validate([
+            'name' => 'required|string',
+            'password' => 'required|string',
+        ]);
+    
+        $user = User::where('name', $request->name)->first();
+    
+        if ($user && Hash::check($request->password, $user->password)) {
+            Auth::login($user);
+            return redirect()->intended('/'); // Redirecionar após login
+        }
+    
+        return back()->withErrors([
+            'name' => 'As credenciais fornecidas estão incorretas.',
+        ]);
     }
 
     /**
